@@ -7,14 +7,32 @@ package defaultMethod;
  */
 interface vehicle{
     default void print(){
-        System.out.print("Hello!");
+        System.out.print(" vehicle print");
     }
 
     static void blow(){
-
+        System.out.println("vehicle blow");
     }
 }
+interface flow{
+    default void print(){
+        System.out.println("flow print");
+    }
+    static void blow(){
+        System.out.println("flow blow");
+    }
+}
+public class test implements vehicle,flow{
 
-public class test {
+    @Override
+    public  void print() {
+        vehicle.super.print();
+        flow.blow();
+    }
 
+    public static void main(String a[]){
+        test test = new test();
+        test.print();
+        System.out.println();
+    }
 }
