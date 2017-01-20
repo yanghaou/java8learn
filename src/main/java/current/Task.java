@@ -148,16 +148,30 @@ public class Task {
 
     public void test5(){
         ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
-        Runnable task = () -> System.out.println("Scheduling: " + System.nanoTime());
+        Runnable task = () -> {
+            try {
+                TimeUnit.SECONDS.sleep(5);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            System.out.println("Scheduling: " + System.nanoTime());
+        };
         ScheduledFuture<?> future = executor.schedule(task, 3, TimeUnit.SECONDS);
-        try {
+       /* try {
             TimeUnit.MILLISECONDS.sleep(1337);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
         long remainingDelay = future.getDelay(TimeUnit.MILLISECONDS);
-        System.out.printf("Remaining Delay: %sms", remainingDelay);
+        System.out.printf("Remaining Delay: %sms", remainingDelay);*/
+
+        int initialDelay = 0;
+        int period = 1;
+        //scheduleAtFixedRate
+       // executor.scheduleAtFixedRate(task, initialDelay, period, TimeUnit.SECONDS);
+
+        executor.scheduleWithFixedDelay(task,initialDelay,period,TimeUnit.SECONDS);
     }
 
     public static void main(String a[]){
